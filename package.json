@@ -1,0 +1,15 @@
+{
+  "name": "@axolo/tree",
+  "version": "0.1.0",
+  "description": "Tree",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": "axolo",
+  "keywords": [
+    "tree"
+  ],
+  "scripts": {
+    "test": "node test/tree.test.js"
+  }
+}
