@@ -9,7 +9,7 @@
 class Tree {
   constructor(tree, config) {
     this.tree = tree
-    this.deep = 0
+    this.depth = 0
     this.config = {
       ...Tree.config,
       ...config
@@ -19,20 +19,20 @@ class Tree {
   /**
    * ** config **
    *
-   * 树的默认配置，包含id、parentId、children、deep、leaf等属性
+   * 树的默认配置，包含id、parentId、children、depth、leaf等属性
    *
    * @type {Object}
    * @property {string} id - 节点的唯一标识符属性名
    * @property {string} parentId - 节点的父节点属性名
    * @property {string} children - 节点的子节点属性名
-   * @property {string} deep - 节点的深度属性名
+   * @property {string} depth - 节点的深度属性名
    * @property {string} leaf - 节点是否为叶子节点属性名
    */
   static config = {
     id: 'id',
     parentId: 'parentId',
     children: 'children',
-    deep: 'deep',
+    depth: 'depth',
     leaf: 'leaf',
   }
 
@@ -46,18 +46,18 @@ class Tree {
    */
   static from(array, config) {
     const options = { ...Tree.config, ...config }
-    const { id, parentId, children, leaf, deep } = options
+    const { id, parentId, children, leaf, depth } = options
     const tree = new Tree([], options)
     const map = {}
     const roots = []
-    let maxDeep = 0
+    let maxDepth = 0
 
     // 1️⃣ 第一次遍历：初始化节点
     array.forEach(item => {
       map[item[id]] = {
         ...item,
         [leaf]: true,
-        [deep]: 0, // 先占位
+        [depth]: 0, // 先占位
         [children]: []
       }
     })
@@ -69,16 +69,16 @@ class Tree {
 
       if (parent) {
         parent[leaf] = false
-        node[deep] = parent[deep] + 1
+        node[depth] = parent[depth] + 1
         parent[children].push(node)
       } else {
-        node[deep] = 1 // 🌱 根节点深度为 1
+        node[depth] = 1 // 🌱 根节点深度为 1
         roots.push(node)
       }
 
       // 🔥 实时更新最大深度
-      if (node[deep] > maxDeep) {
-        maxDeep = node[deep]
+      if (node[depth] > maxDepth) {
+        maxDepth = node[depth]
       }
     })
 
@@ -90,7 +90,7 @@ class Tree {
     })
 
     tree.tree = roots
-    tree.deep = maxDeep
+    tree.depth = maxDepth
     return tree
   }
 
@@ -107,22 +107,22 @@ class Tree {
       parentId,
       children,
       leaf,
-      deep: deepKey
+      depth: depthKey
     } = this.config
 
     const result = []
 
-    const traverse = (nodes, deep, parentNodeId) => {
+    const traverse = (nodes, depth, parentNodeId) => {
       nodes.forEach(node => {
         const { [children]: kids, ...rest } = node
         result.push({
           ...rest,
-          [deepKey]: deep,
+          [depthKey]: depth,
           [parentId]: parentNodeId ?? null,
           [leaf]: !!kids?.length
         })
         if (kids?.length) {
-          traverse(kids, deep + 1, node[idKey])
+          traverse(kids, depth + 1, node[idKey])
         }
       })
     }
@@ -264,37 +264,37 @@ class Tree {
   }
 
   /**
-   * ** getDeep **
+   * ** getDepth **
    *
    * 获取树的深度，返回树的深度
    *
    * @return {Number} 树的深度
    */
-  getDeep() {
-    if (this.deep) {
-      return this.deep
+  getDepth() {
+    if (this.depth) {
+      return this.depth
     }
 
     const { children } = this.config
 
-    const calcDeep = nodes => {
+    const calcDepth = nodes => {
       if (!nodes || nodes.length === 0) {
         return 0
       }
 
-      let maxDeep = 0
+      let maxDepth = 0
       nodes.forEach((item) => {
-        const childDeep = item[children]?.length
-          ? calcDeep(item[children]) + 1
+        const childDepth = item[children]?.length
+          ? calcDepth(item[children]) + 1
           : 0
-        maxDeep = Math.max(maxDeep, childDeep)
+        maxDepth = Math.max(maxDepth, childDepth)
       })
 
-      return maxDeep
+      return maxDepth
     }
 
-    this.deep = calcDeep(this.tree) + 1
-    return this.deep
+    this.depth = calcDepth(this.tree) + 1
+    return this.depth
   }
 }
 

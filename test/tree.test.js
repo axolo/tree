@@ -9,11 +9,11 @@ const raw = new Tree(adcode, config)
 
 const array = raw.toArray()
 console.log('\n=== raw.toArray ===\n', format(array))
-console.log('\n=== tree.getDeep ===\n', format(raw.getDeep()))
+console.log('\n=== tree.getDepth ===\n', format(raw.getDepth()))
 
 const tree = Tree.from(array, config)
 console.log('\n=== Tree.from ===\n', format(tree.tree))
-console.log('\n=== tree.deep ===\n', format(tree.deep))
+console.log('\n=== tree.depth ===\n', format(tree.depth))
 
 const path = tree.path('330106008')
 console.log('\n=== tree.path:undefined ===\n', format(path))
