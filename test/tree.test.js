@@ -1,51 +1,31 @@
+import { inspect } from 'node:util'
 import Tree from '../src/tree.js'
+import adcode from './adcode.json' with { type: 'json' }
 
-const testArray = [
-  { id: '1', name: 'id:1', parentId: null },
-  { id: '1-1', name: 'id:1-1', parentId: '1' },
-  { id: '1-2', name: 'id:1-2', parentId: '1' },
-  { id: '1-1-1', name: 'id:1-1-1', parentId: '1-1' },
-  { id: '1-1-2', name: 'id:1-1-2', parentId: '1-1' },
-  { id: '1-1-2-1', name: 'id:1-1-2-1', parentId: '1-1-2' },
-  { id: '2', name: 'id:2', parentId: null },
-  { id: '2-1', name: 'id:2-1', parentId: '2' }
-]
+const format = (obj, depth = null) => inspect(obj, { depth })
 
-console.log('=== 测试数据 ===')
-console.log(JSON.stringify(testArray, null, 2))
+const config = { id: 'adcode', children: 'districts' }
+const raw = new Tree(adcode, config)
 
-console.log('\n=== 1. 测试 fromArray 方法 ===')
-const tree = new Tree([], { id: 'id', parentId: 'parentId', children: 'children' })
-tree.fromArray(testArray)
-console.log('树结构:', JSON.stringify(tree.tree, null, 2))
-console.log('树的深度:', tree.deep)
+const array = raw.toArray()
+console.log('\n=== raw.toArray ===\n', format(array))
+console.log('\n=== tree.getDeep ===\n', format(raw.getDeep()))
 
-console.log('\n=== 2. 测试 toArray 方法 ===')
-const array = tree.toArray()
-console.log('数组结构:', JSON.stringify(array, null, 2))
+const tree = Tree.from(array, config)
+console.log('\n=== Tree.from ===\n', format(tree.tree))
+console.log('\n=== tree.deep ===\n', format(tree.deep))
 
-console.log('\n=== 3. 测试 path 方法 ===')
-console.log('path("1-1-2-1", "") - 对象路径:', tree.path('1-1-2-1', ''))
-console.log('path("1-1-2-1", "id") - 对象路径:', tree.path('1-1-2-1', 'id'))
-console.log('path("1-1-2-1", "id") - id路径:', tree.path('1-1-2-1', 'id'))
-console.log('path("1-1-2-1", null) - 索引路径:', tree.path('1-1-2-1', null))
+const path = tree.path('330106008')
+console.log('\n=== tree.path:undefined ===\n', format(path))
 
-console.log('\n=== 4. 测试 parent 方法 ===')
-console.log('parent("1-1"):', tree.parent('1-1'))
-console.log('parent("1"):', tree.parent('1'))
-console.log('parent("1-1-1"):', tree.parent('1-1-1'))
+const name = tree.path('330106008', 'name')
+console.log('\n=== tree.path:name ===\n', format(name))
 
-console.log('\n=== 5. 测试 filter 方法 ===')
-const filtered = tree.filter(node => node.name.includes('child'))
-console.log('过滤包含 "child" 的节点:', JSON.stringify(filtered.tree, null, 2))
+const index = tree.path('330106008', null)
+console.log('\n=== tree.path:null ===\n', format(index))
 
-console.log('\n=== 6. 测试 sub 方法 ===')
-const subTree = tree.sub('1')
-console.log('获取 id="1" 的子树:', JSON.stringify(subTree, null, 2))
-const subTree2 = tree.sub('1-1')
-console.log('获取 id="1-1" 的子树:', JSON.stringify(subTree2, null, 2))
+const filter = tree.filter(node => node.name.includes('湖'))
+console.log('\n=== tree.filter ===\n', format(filter))
 
-console.log('\n=== 7. 测试 getDeep 方法 ===')
-console.log('树的深度:', tree.getDeep())
-
-console.log('\n=== 所有测试完成 ===')
+const sub = tree.sub('330106')
+console.log('\n=== tree.sub ===\n', format(sub))

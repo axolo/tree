@@ -11,15 +11,30 @@ class Tree {
     this.tree = tree
     this.deep = 0
     this.config = {
-      id: 'id',
-      parentId: 'parentId',
-      children: 'children',
-      deep: 'deep',
-      leaf: 'leaf',
+      ...Tree.config,
       ...config
     }
   }
 
+  /**
+   * ** config **
+   *
+   * 树的默认配置，包含id、parentId、children、deep、leaf等属性
+   *
+   * @type {Object}
+   * @property {string} id - 节点的唯一标识符属性名
+   * @property {string} parentId - 节点的父节点属性名
+   * @property {string} children - 节点的子节点属性名
+   * @property {string} deep - 节点的深度属性名
+   * @property {string} leaf - 节点是否为叶子节点属性名
+   */
+  static config = {
+    id: 'id',
+    parentId: 'parentId',
+    children: 'children',
+    deep: 'deep',
+    leaf: 'leaf',
+  }
 
   /**
    * ** fromArray **
@@ -29,8 +44,10 @@ class Tree {
    * @param {Array} array - 数组表示的树
    * @return {Tree} 树对象
    */
-  fromArray(array) {
-    const { id, parentId, children, leaf, deep } = this.config
+  static from(array, config) {
+    const options = { ...Tree.config, ...config }
+    const { id, parentId, children, leaf, deep } = options
+    const tree = new Tree([], options)
     const map = {}
     const roots = []
     let maxDeep = 0
@@ -65,9 +82,9 @@ class Tree {
       }
     })
 
-    this.tree = roots
-    this.deep = maxDeep
-    return this
+    tree.tree = roots
+    tree.deep = maxDeep
+    return tree
   }
 
   /**
@@ -78,20 +95,32 @@ class Tree {
    * @return {Array} 数组表示的树
    */
   toArray() {
-    const { children, deep: deepKey, leaf } = this.config
+    const {
+      id: idKey,
+      parentId,
+      children,
+      leaf,
+      deep: deepKey
+    } = this.config
+
     const result = []
 
-    const traverse = (nodes, deep) => {
+    const traverse = (nodes, deep, parentNodeId) => {
       nodes.forEach(node => {
         const { [children]: kids, ...rest } = node
-        result.push({ ...rest, [deepKey]: deep })
+        result.push({
+          ...rest,
+          [deepKey]: deep,
+          [parentId]: parentNodeId ?? null,
+          [leaf]: !!kids?.length
+        })
         if (kids?.length) {
-          traverse(kids, deep + 1)
+          traverse(kids, deep + 1, node[idKey])
         }
       })
     }
 
-    traverse(this.tree, 1)
+    traverse(this.tree, 1, null)
     return result
   }
 
@@ -100,9 +129,9 @@ class Tree {
    *
    * 获取指定对象的路径，返回路径上的所有对象的对象、指定key或索引数组
    *
-   * - 如果`key`为空字符串，返回路径上的对象的对象数组，如：`[root, ..., parent, self]`
-   * - 如果`key`存在，返回路径上的对象的指定key数组，如：`['33', ..., '330110', '33011001']`
-   * - 如果`key`不存在，返回路径上的对象的索引数组,如：`[0, ..., 2, 0]`
+   * - 如果`key`未定义（undefined），返回路径上的对象数组，如：`[{ id: '33', name: '浙江' }, ..., { id: '330106', name: '西湖区' }, { id: '330106008', name: '西湖街道' }]`
+   * - 如果`key`存在（如：id），返回路径上的对象指定key数组，如：`['33', ..., '330106', '330106008']`
+   * - 如果`key`不存在（如：null、false），则返回路径上的对象索引数组,如：`[0, ..., 5, 7]`
    *
    * @param {String} id - 对象的id
    * @param {String} key - 路径上的对象的key
@@ -131,12 +160,10 @@ class Tree {
     const foundPath = findPath(this.tree, [])
     if (!foundPath) return []
 
-    if (key === '') {
+    if (key === undefined) {
       return foundPath.map(item => item.node)
-    } else if (key) {
-      return foundPath.map(item => item.node[key])
     } else {
-      return foundPath.map(item => item.index)
+      return foundPath.map(item => item.node[key] ?? item.index)
     }
   }
 
@@ -173,7 +200,7 @@ class Tree {
    * 根据指定条件过滤树，返回过滤后的树
    *
    * @param {Function} condition - 过滤条件函数，接收一个对象作为参数，返回一个布尔值
-   * @return {Tree} 过滤后的树
+   * @return {Array} 过滤后的树数组表示
    */
   filter(condition) {
     const { children } = this.config
@@ -194,7 +221,7 @@ class Tree {
     }
 
     const filteredTree = filterTree(this.tree)
-    return new Tree(filteredTree, this.config)
+    return filteredTree
   }
 
   /**

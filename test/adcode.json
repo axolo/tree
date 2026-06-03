@@ -1,0 +1,585 @@
+[
+  {
+    "adcode": "330000",
+    "name": "浙江省",
+    "districts": [
+      {
+        "adcode": "330900",
+        "name": "舟山市",
+        "districts": [
+          {
+            "adcode": "330922",
+            "name": "嵊泗县",
+            "districts": []
+          },
+          {
+            "adcode": "330921",
+            "name": "岱山县",
+            "districts": []
+          },
+          {
+            "adcode": "330902",
+            "name": "定海区",
+            "districts": []
+          },
+          {
+            "adcode": "330903",
+            "name": "普陀区",
+            "districts": []
+          }
+        ]
+      },
+      {
+        "adcode": "330400",
+        "name": "嘉兴市",
+        "districts": [
+          {
+            "adcode": "330482",
+            "name": "平湖市",
+            "districts": []
+          },
+          {
+            "adcode": "330402",
+            "name": "南湖区",
+            "districts": []
+          },
+          {
+            "adcode": "330483",
+            "name": "桐乡市",
+            "districts": []
+          },
+          {
+            "adcode": "330411",
+            "name": "秀洲区",
+            "districts": []
+          },
+          {
+            "adcode": "330424",
+            "name": "海盐县",
+            "districts": []
+          },
+          {
+            "adcode": "330421",
+            "name": "嘉善县",
+            "districts": []
+          },
+          {
+            "adcode": "330481",
+            "name": "海宁市",
+            "districts": []
+          }
+        ]
+      },
+      {
+        "adcode": "330200",
+        "name": "宁波市",
+        "districts": [
+          {
+            "adcode": "330206",
+            "name": "北仑区",
+            "districts": []
+          },
+          {
+            "adcode": "330225",
+            "name": "象山县",
+            "districts": []
+          },
+          {
+            "adcode": "330211",
+            "name": "镇海区",
+            "districts": []
+          },
+          {
+            "adcode": "330205",
+            "name": "江北区",
+            "districts": []
+          },
+          {
+            "adcode": "330203",
+            "name": "海曙区",
+            "districts": []
+          },
+          {
+            "adcode": "330212",
+            "name": "鄞州区",
+            "districts": []
+          },
+          {
+            "adcode": "330213",
+            "name": "奉化区",
+            "districts": []
+          },
+          {
+            "adcode": "330281",
+            "name": "余姚市",
+            "districts": []
+          },
+          {
+            "adcode": "330282",
+            "name": "慈溪市",
+            "districts": []
+          },
+          {
+            "adcode": "330226",
+            "name": "宁海县",
+            "districts": []
+          }
+        ]
+      },
+      {
+        "adcode": "331000",
+        "name": "台州市",
+        "districts": [
+          {
+            "adcode": "331082",
+            "name": "临海市",
+            "districts": []
+          },
+          {
+            "adcode": "331002",
+            "name": "椒江区",
+            "districts": []
+          },
+          {
+            "adcode": "331004",
+            "name": "路桥区",
+            "districts": []
+          },
+          {
+            "adcode": "331083",
+            "name": "玉环市",
+            "districts": []
+          },
+          {
+            "adcode": "331081",
+            "name": "温岭市",
+            "districts": []
+          },
+          {
+            "adcode": "331022",
+            "name": "三门县",
+            "districts": []
+          },
+          {
+            "adcode": "331024",
+            "name": "仙居县",
+            "districts": []
+          },
+          {
+            "adcode": "331003",
+            "name": "黄岩区",
+            "districts": []
+          },
+          {
+            "adcode": "331023",
+            "name": "天台县",
+            "districts": []
+          }
+        ]
+      },
+      {
+        "adcode": "330300",
+        "name": "温州市",
+        "districts": [
+          {
+            "adcode": "330326",
+            "name": "平阳县",
+            "districts": []
+          },
+          {
+            "adcode": "330305",
+            "name": "洞头区",
+            "districts": []
+          },
+          {
+            "adcode": "330327",
+            "name": "苍南县",
+            "districts": []
+          },
+          {
+            "adcode": "330381",
+            "name": "瑞安市",
+            "districts": []
+          },
+          {
+            "adcode": "330328",
+            "name": "文成县",
+            "districts": []
+          },
+          {
+            "adcode": "330329",
+            "name": "泰顺县",
+            "districts": []
+          },
+          {
+            "adcode": "330382",
+            "name": "乐清市",
+            "districts": []
+          },
+          {
+            "adcode": "330324",
+            "name": "永嘉县",
+            "districts": []
+          },
+          {
+            "adcode": "330303",
+            "name": "龙湾区",
+            "districts": []
+          },
+          {
+            "adcode": "330302",
+            "name": "鹿城区",
+            "districts": []
+          },
+          {
+            "adcode": "330304",
+            "name": "瓯海区",
+            "districts": []
+          },
+          {
+            "adcode": "330383",
+            "name": "龙港市",
+            "districts": []
+          }
+        ]
+      },
+      {
+        "adcode": "330800",
+        "name": "衢州市",
+        "districts": [
+          {
+            "adcode": "330802",
+            "name": "柯城区",
+            "districts": []
+          },
+          {
+            "adcode": "330881",
+            "name": "江山市",
+            "districts": []
+          },
+          {
+            "adcode": "330822",
+            "name": "常山县",
+            "districts": []
+          },
+          {
+            "adcode": "330803",
+            "name": "衢江区",
+            "districts": []
+          },
+          {
+            "adcode": "330825",
+            "name": "龙游县",
+            "districts": []
+          },
+          {
+            "adcode": "330824",
+            "name": "开化县",
+            "districts": []
+          }
+        ]
+      },
+      {
+        "adcode": "330500",
+        "name": "湖州市",
+        "districts": [
+          {
+            "adcode": "330522",
+            "name": "长兴县",
+            "districts": []
+          },
+          {
+            "adcode": "330502",
+            "name": "吴兴区",
+            "districts": []
+          },
+          {
+            "adcode": "330503",
+            "name": "南浔区",
+            "districts": []
+          },
+          {
+            "adcode": "330521",
+            "name": "德清县",
+            "districts": []
+          },
+          {
+            "adcode": "330523",
+            "name": "安吉县",
+            "districts": []
+          }
+        ]
+      },
+      {
+        "adcode": "330700",
+        "name": "金华市",
+        "districts": [
+          {
+            "adcode": "330784",
+            "name": "永康市",
+            "districts": []
+          },
+          {
+            "adcode": "330723",
+            "name": "武义县",
+            "districts": []
+          },
+          {
+            "adcode": "330703",
+            "name": "金东区",
+            "districts": []
+          },
+          {
+            "adcode": "330782",
+            "name": "义乌市",
+            "districts": []
+          },
+          {
+            "adcode": "330726",
+            "name": "浦江县",
+            "districts": []
+          },
+          {
+            "adcode": "330702",
+            "name": "婺城区",
+            "districts": []
+          },
+          {
+            "adcode": "330781",
+            "name": "兰溪市",
+            "districts": []
+          },
+          {
+            "adcode": "330727",
+            "name": "磐安县",
+            "districts": []
+          },
+          {
+            "adcode": "330783",
+            "name": "东阳市",
+            "districts": []
+          }
+        ]
+      },
+      {
+        "adcode": "331100",
+        "name": "丽水市",
+        "districts": [
+          {
+            "adcode": "331124",
+            "name": "松阳县",
+            "districts": []
+          },
+          {
+            "adcode": "331181",
+            "name": "龙泉市",
+            "districts": []
+          },
+          {
+            "adcode": "331125",
+            "name": "云和县",
+            "districts": []
+          },
+          {
+            "adcode": "331123",
+            "name": "遂昌县",
+            "districts": []
+          },
+          {
+            "adcode": "331127",
+            "name": "景宁畲族自治县",
+            "districts": []
+          },
+          {
+            "adcode": "331122",
+            "name": "缙云县",
+            "districts": []
+          },
+          {
+            "adcode": "331121",
+            "name": "青田县",
+            "districts": []
+          },
+          {
+            "adcode": "331102",
+            "name": "莲都区",
+            "districts": []
+          },
+          {
+            "adcode": "331126",
+            "name": "庆元县",
+            "districts": []
+          }
+        ]
+      },
+      {
+        "adcode": "330600",
+        "name": "绍兴市",
+        "districts": [
+          {
+            "adcode": "330683",
+            "name": "嵊州市",
+            "districts": []
+          },
+          {
+            "adcode": "330624",
+            "name": "新昌县",
+            "districts": []
+          },
+          {
+            "adcode": "330681",
+            "name": "诸暨市",
+            "districts": []
+          },
+          {
+            "adcode": "330603",
+            "name": "柯桥区",
+            "districts": []
+          },
+          {
+            "adcode": "330604",
+            "name": "上虞区",
+            "districts": []
+          },
+          {
+            "adcode": "330602",
+            "name": "越城区",
+            "districts": []
+          }
+        ]
+      },
+      {
+        "adcode": "330100",
+        "name": "杭州市",
+        "districts": [
+          {
+            "adcode": "330108",
+            "name": "滨江区",
+            "districts": []
+          },
+          {
+            "adcode": "330122",
+            "name": "桐庐县",
+            "districts": []
+          },
+          {
+            "adcode": "330111",
+            "name": "富阳区",
+            "districts": []
+          },
+          {
+            "adcode": "330127",
+            "name": "淳安县",
+            "districts": []
+          },
+          {
+            "adcode": "330114",
+            "name": "钱塘区",
+            "districts": []
+          },
+          {
+            "adcode": "330102",
+            "name": "上城区",
+            "districts": []
+          },
+          {
+            "adcode": "330105",
+            "name": "拱墅区",
+            "districts": []
+          },
+          {
+            "adcode": "330182",
+            "name": "建德市",
+            "districts": []
+          },
+          {
+            "adcode": "330106",
+            "name": "西湖区",
+            "districts": [
+              {
+                "name": "北山街道",
+                "adcode": "330106002",
+                "districts": []
+              },
+              {
+                "name": "西溪街道",
+                "adcode": "330106004",
+                "districts": []
+              },
+              {
+                "name": "翠苑街道",
+                "adcode": "33010106005",
+                "districts": []
+              },
+              {
+                "name": "古荡街道",
+                "adcode": "330106007",
+                "districts": []
+              },
+              {
+                "name": "西湖街道",
+                "adcode": "330106008",
+                "districts": []
+              },
+              {
+                "name": "留下街道",
+                "adcode": "330106009",
+                "districts": []
+              },
+              {
+                "name": "转塘街道",
+                "adcode": "330106010",
+                "districts": []
+              },
+              {
+                "name": "蒋村街道",
+                "adcode": "330106011",
+                "districts": []
+              },
+              {
+                "name": "灵隐街道",
+                "adcode": "330106012",
+                "districts": []
+              },
+              {
+                "name": "文新街道",
+                "adcode": "330106013",
+                "districts": []
+              },
+              {
+                "name": "三墩镇",
+                "adcode": "330106109",
+                "districts": []
+              },
+              {
+                "name": "双浦镇",
+                "adcode": "330106110",
+                "districts": []
+              }
+            ]
+          },
+          {
+            "adcode": "330113",
+            "name": "临平区",
+            "districts": []
+          },
+          {
+            "adcode": "330109",
+            "name": "萧山区",
+            "districts": []
+          },
+          {
+            "adcode": "330110",
+            "name": "余杭区",
+            "districts": []
+          },
+          {
+            "adcode": "330112",
+            "name": "临安区",
+            "districts": []
+          }
+        ]
+      }
+    ]
+  }
+]
