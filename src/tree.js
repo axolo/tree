@@ -82,6 +82,13 @@ class Tree {
       }
     })
 
+    // 3️⃣ 移除空的 children 属性
+    Object.values(map).forEach(node => {
+      if (node[children]?.length === 0) {
+        delete node[children]
+      }
+    })
+
     tree.tree = roots
     tree.deep = maxDeep
     return tree
@@ -149,7 +156,7 @@ class Tree {
           return newPath
         }
 
-        if (node[children] && node[children].length > 0) {
+        if (node[children]?.length > 0) {
           const found = findPath(node[children], newPath)
           if (found) return found
         }
@@ -210,10 +217,11 @@ class Tree {
         const filtered = { ...node }
         if (node[children]?.length > 0) {
           filtered[children] = filterTree(node[children])
-        } else {
-          filtered[children] = []
         }
-        if (condition(node) || filtered[children].length > 0) {
+        if (condition(node) || filtered[children]?.length > 0) {
+          if (!filtered[children]?.length) {
+            delete filtered[children]
+          }
           acc.push(filtered)
         }
         return acc
@@ -243,7 +251,7 @@ class Tree {
             [children]: node[children] ? [...node[children]] : []
           }
         }
-        if (node[children] && node[children].length > 0) {
+        if (node[children]?.length > 0) {
           const found = findSub(node[children])
           if (found) return found
         }

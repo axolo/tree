@@ -1,6 +1,6 @@
 import { inspect } from 'node:util'
 import Tree from '../src/tree.js'
-import adcode from './adcode.json' with { type: 'json' }
+import adcode from './330000.json' with { type: 'json' }
 
 const format = (obj, depth = null) => inspect(obj, { depth })
 
@@ -29,3 +29,6 @@ console.log('\n=== tree.filter ===\n', format(filter))
 
 const sub = tree.sub('330106')
 console.log('\n=== tree.sub ===\n', format(sub))
+
+const parent = tree.parent('330106008')
+console.log('\n=== tree.parent ===\n', format(parent))
