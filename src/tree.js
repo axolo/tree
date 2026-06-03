@@ -192,7 +192,7 @@ class Tree {
         }
         if (node[children]?.length > 0) {
           const found = findParent(node[children], node)
-          if (found !== undefined) return found
+          if (found !== null) return found
         }
       }
       return null
