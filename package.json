@@ -2,14 +2,34 @@
   "name": "@axolo/tree",
   "version": "0.1.0",
   "description": "Tree",
-  "private": true,
-  "type": "module",
   "license": "MIT",
   "author": "axolo",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "module": "dist/tree.es.js",
+  "main": "dist/tree.umd.js",
+  "exports": {
+    ".": {
+      "import": "./dist/tree.es.js",
+      "require": "./dist/tree.umd.js"
+    }
+  },
   "keywords": [
     "tree"
   ],
+  "homepage": "https://github.com/axolo/tree#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axolo/tree.git"
+  },
   "scripts": {
+    "build": "vite build",
     "test": "node test/tree.test.js"
+  },
+  "devDependencies": {
+    "terser": "^5.48.0",
+    "vite": "^8.0.16"
   }
 }
