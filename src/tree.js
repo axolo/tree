@@ -8,9 +8,9 @@
  */
 class Tree {
   constructor(tree, config) {
-    this.nodeMap = null
     this.tree = tree
     this.depth = 0
+    this.nodeMap = null
     this.config = {
       ...Tree.config,
       ...config
@@ -109,17 +109,16 @@ class Tree {
 
     const { id, children } = this.config
     const map = {}
+    const stack = [...this.tree.map((node, index) => ({ node, parentIndex: -1, index }))]
 
-    const traverse = nodes => {
-      nodes.forEach(node => {
-        map[node[id]] = node
-        if (node[children]?.length) {
-          traverse(node[children])
-        }
-      })
+    while (stack.length) {
+      const { node, index } = stack.pop()
+      map[node[id]] = { node, index }
+      if (node[children]?.length) {
+        stack.push(...node[children].map((child, idx) => ({ node: child, index: idx })))
+      }
     }
 
-    traverse(this.tree)
     this.nodeMap = map
     return map
   }
@@ -132,27 +131,22 @@ class Tree {
    * @return {Array} 数组表示的树
    */
   toArray() {
-    const {
-      id: idKey,
-      parentId,
-      children,
-      leaf,
-      depth: depthKey
-    } = this.config
-
+    const { id, parentId, children, leaf, depth } = this.config
     const result = []
 
-    const traverse = (nodes, depth, parentNodeId) => {
+    const traverse = (nodes, deep, parentNodeId) => {
       nodes.forEach(node => {
         const { [children]: kids, ...rest } = node
+
         result.push({
           ...rest,
-          [depthKey]: depth,
+          [depth]: deep,
           [parentId]: parentNodeId ?? null,
           [leaf]: !kids?.length
         })
+
         if (kids?.length) {
-          traverse(kids, depth + 1, node[idKey])
+          traverse(kids, deep + 1, node[id])
         }
       })
     }
@@ -175,33 +169,25 @@ class Tree {
    * @return {Array} 路径上的对象的对象数组、指定key数组或索引数组
    */
   path(id, key) {
-    const { id: idKey, children } = this.config
+    const { parentId } = this.config
+    const map = this.getNodeMap()
 
-    const findPath = (nodes, currentPath) => {
-      for (let i = 0; i < nodes.length; i++) {
-        const node = nodes[i]
-        const newPath = [...currentPath, { node, index: i }]
+    let entry = map[id]
+    if (!entry) return []
 
-        if (node[idKey] === id) {
-          return newPath
-        }
-
-        if (node[children]?.length > 0) {
-          const found = findPath(node[children], newPath)
-          if (found) return found
-        }
-      }
-      return null
+    // 向回溯构建路径
+    const pathEntries = [entry]
+    while (entry.node[parentId]) {
+      entry = map[entry.node[parentId]]
+      if (!entry) break
+      pathEntries.unshift(entry)
     }
-
-    const foundPath = findPath(this.tree, [])
-    if (!foundPath) return []
 
     if (key === undefined) {
-      return foundPath.map(item => item.node)
-    } else {
-      return foundPath.map(item => item.node[key] ?? item.index)
+      return pathEntries.map(e => e.node)
     }
+
+    return pathEntries.map(e => e.node[key] ?? e.index)
   }
 
   /**
@@ -215,9 +201,10 @@ class Tree {
   parent(id) {
     const { parentId } = this.config
     const map = this.getNodeMap()
-    const node = map[id]
-    if (!node) return null
-    return map[node[parentId]] || null
+    const entry = map[id]
+    if (!entry) return null
+    const parentEntry = map[entry.node[parentId]]
+    return parentEntry?.node || null
   }
 
   /**
@@ -261,16 +248,10 @@ class Tree {
    */
   sub(id) {
     const { children } = this.config
-    const node = this.getNodeMap()[id]
-
-    if (!node) {
-      return []
-    }
-
-    return [{
-      ...node,
-      [children]: node[children] ? [...node[children]] : []
-    }]
+    const entry = this.getNodeMap()[id]
+    if (!entry) return []
+    const { node } = entry
+    return [{ ...node, [children]: node[children] ? [...node[children]] : [] }]
   }
 
   /**

@@ -46,22 +46,21 @@ describe('Tree', () => {
 
   describe('path', () => {
     it('should return object array when key is undefined', () => {
-      const path = tree.path('330106008')
-      assert(Array.isArray(path))
-      assert(path.length > 0)
-      assert(path[path.length - 1].adcode === '330106008')
+      const nodes = tree.path('330106008')
+      assert(Array.isArray(nodes))
+      assert.deepStrictEqual(nodes.map(i => i.adcode), ['33', '3301', '330106', '330106008'])
     })
 
     it('should return string array when key is specified', () => {
-      const namePath = tree.path('330106008', 'name')
-      assert(Array.isArray(namePath))
-      assert(typeof namePath[0] === 'string')
+      const names = tree.path('330106008', 'name')
+      assert(Array.isArray(names))
+      assert.deepStrictEqual(names, ['浙江省', '杭州市', '西湖区', '西湖街道'])
     })
 
     it('should return index array when key is null', () => {
-      const indexPath = tree.path('330106008', null)
-      assert(Array.isArray(indexPath))
-      assert(indexPath.every(i => typeof i === 'number'))
+      const indexes = tree.path('330106008', null)
+      assert(Array.isArray(indexes))
+      assert.deepStrictEqual(indexes, [0, 10, 8, 4])
     })
 
     it('should return empty array when node not found', () => {
@@ -73,9 +72,9 @@ describe('Tree', () => {
 
   describe('filter', () => {
     it('should return filtered nodes array', () => {
-      const filterResult = tree.filter(node => node.name.includes('湖'))
-      assert(Array.isArray(filterResult))
-      assert(filterResult.length > 0)
+      const filter = tree.filter(node => node.name.includes('湖'))
+      assert(Array.isArray(filter))
+      assert(filter.length > 0)
     })
   })
 
@@ -101,7 +100,7 @@ describe('Tree', () => {
     })
 
     it('should return null for root node', () => {
-      const rootParent = tree.parent('330000')
+      const rootParent = tree.parent('33')
       assert(rootParent === null)
     })
   })
