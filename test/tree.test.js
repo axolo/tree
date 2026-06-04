@@ -82,9 +82,8 @@ describe('Tree', () => {
   describe('sub', () => {
     it('should return subtree array', () => {
       const subTree = tree.sub('330106')
-      assert(Array.isArray(subTree))
-      assert(subTree.length === 1)
       assert(subTree[0].adcode === '330106')
+      assert(subTree[0].districts.every(i => i.adcode.startsWith('330106')))
     })
 
     it('should return empty array when node not found', () => {

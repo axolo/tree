@@ -8,6 +8,7 @@
  */
 class Tree {
   constructor(tree, config) {
+    this.nodeMap = null
     this.tree = tree
     this.depth = 0
     this.config = {
@@ -84,7 +85,7 @@ class Tree {
 
     // 3️⃣ 移除空的 children 属性
     Object.values(map).forEach(node => {
-      if (node[children]?.length === 0) {
+      if (!node[children]?.length) {
         delete node[children]
       }
     })
@@ -92,6 +93,35 @@ class Tree {
     tree.tree = roots
     tree.depth = maxDepth
     return tree
+  }
+
+  /**
+   * ** getNodeMap **
+   *
+   * 获取节点映射表，键为节点的id，值为节点对象
+   *
+   * @return {Object} 节点映射表
+   */
+  getNodeMap() {
+    if (this.nodeMap) {
+      return this.nodeMap
+    }
+
+    const { id, children } = this.config
+    const map = {}
+
+    const traverse = nodes => {
+      nodes.forEach(node => {
+        map[node[id]] = node
+        if (node[children]?.length) {
+          traverse(node[children])
+        }
+      })
+    }
+
+    traverse(this.tree)
+    this.nodeMap = map
+    return map
   }
 
   /**
@@ -119,7 +149,7 @@ class Tree {
           ...rest,
           [depthKey]: depth,
           [parentId]: parentNodeId ?? null,
-          [leaf]: !!kids?.length
+          [leaf]: !kids?.length
         })
         if (kids?.length) {
           traverse(kids, depth + 1, node[idKey])
@@ -183,22 +213,11 @@ class Tree {
    * @return {Object} 父对象
    */
   parent(id) {
-    const { id: idKey, children } = this.config
-
-    const findParent = (nodes, parentNode) => {
-      for (const node of nodes) {
-        if (node[idKey] === id) {
-          return parentNode
-        }
-        if (node[children]?.length > 0) {
-          const found = findParent(node[children], node)
-          if (found !== null) return found
-        }
-      }
-      return null
-    }
-
-    return findParent(this.tree, null)
+    const { parentId } = this.config
+    const map = this.getNodeMap()
+    const node = map[id]
+    if (!node) return null
+    return map[node[parentId]] || null
   }
 
   /**
@@ -241,26 +260,17 @@ class Tree {
    * @return {Array} 子树的数组表示
    */
   sub(id) {
-    const { id: idKey, children } = this.config
+    const { children } = this.config
+    const node = this.getNodeMap()[id]
 
-    const findSub = nodes => {
-      for (const node of nodes) {
-        if (node[idKey] === id) {
-          return {
-            ...node,
-            [children]: node[children] ? [...node[children]] : []
-          }
-        }
-        if (node[children]?.length > 0) {
-          const found = findSub(node[children])
-          if (found) return found
-        }
-      }
-      return null
+    if (!node) {
+      return []
     }
 
-    const result = findSub(this.tree)
-    return result ? [result] : []
+    return [{
+      ...node,
+      [children]: node[children] ? [...node[children]] : []
+    }]
   }
 
   /**
@@ -271,29 +281,21 @@ class Tree {
    * @return {Number} 树的深度
    */
   getDepth() {
-    if (this.depth) {
-      return this.depth
-    }
+    if (this.depth) return this.depth
 
     const { children } = this.config
 
     const calcDepth = nodes => {
-      if (!nodes || nodes.length === 0) {
+      if (!nodes?.length) {
         return 0
       }
 
-      let maxDepth = 0
-      nodes.forEach((item) => {
-        const childDepth = item[children]?.length
-          ? calcDepth(item[children]) + 1
-          : 0
-        maxDepth = Math.max(maxDepth, childDepth)
-      })
-
-      return maxDepth
+      return Math.max(...nodes.map(node =>
+        node[children]?.length ? calcDepth(node[children]) + 1 : 1
+      ))
     }
 
-    this.depth = calcDepth(this.tree) + 1
+    this.depth = calcDepth(this.tree)
     return this.depth
   }
 }
