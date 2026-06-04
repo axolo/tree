@@ -21,7 +21,8 @@ const array = [
   { id: 4, parentId: 2, name: 'Grandchild' }
 ]
 
-// Convert array to tree
+// Convert array to Tree instance
+// tree.tree is tree structure data
 const tree = Tree.from(array)
 
 // Convert tree to array
@@ -32,13 +33,13 @@ const path = tree.path(4) // [{ id: 1, ... }, { id: 2, ... }, { id: 4, ... }]
 const pathIds = tree.path(4, 'id') // [1, 2, 4]
 const pathIndices = tree.path(4, null) // [0, 0, 0]
 
-// Get parent node
+// Get parent node by id
 const parent = tree.parent(4) // { id: 2, ... }
 
-// Filter tree
+// Filter tree with condition function
 const filtered = tree.filter(node => node.name.includes('Child'))
 
-// Get subtree
+// Get subtree by id
 const subtree = tree.sub(2) // [{ id: 2, children: [...] }]
 
 // Get tree depth
@@ -59,43 +60,54 @@ const depth = tree.getDepth() // 3
 
 ### `Tree.from(array, config = {})`
 
-Convert an array to a tree structure.
+Convert an array to a Tree instance.
 
 **Parameters:**
 
-- `array` {Array} - Array representation of tree data
-- `config` {Object} - Optional configuration object
+- `array` {Array} - Flattened tree data array
+- `config` {Object} - Optional configuration
+
+**Returns:** {Tree} - Tree instance
+
+### `new Tree(tree, config = {})`
+
+Create a new Tree instance.
+
+**Parameters:**
+
+- `tree` {Array} - Tree structure data array
+- `config` {Object} - Optional configuration
 
 **Returns:** {Tree} - Tree instance
 
 ### `tree.toArray()`
 
-Convert tree back to array.
+Convert tree back to flattened array.
 
-**Returns:** {Array} - Array representation of the tree
+**Returns:** {Array} - Flattened tree array
 
 ### `tree.path(id, key = undefined)`
 
-Get the path from root to the target node.
+Get the path from root to target node.
 
 **Parameters:**
 
-- `id` {String|Number} - Target node id
-- `key` {String|null|undefined} - Return property key
+- `id` {String|Number} - Target node ID
+- `key` {String|null|undefined} - Property key to return
 
-**Returns:** {Array} Path array containing nodes, specified keys, or indices depending on key parameter
+**Returns:** {Array} - Path array containing nodes, specified keys, or indices
 
-- key is undefined:  nodes like `[root, ..., parent, self]`
-- existing key: keys like `[root[key], ..., parent[key], self[key]]`
-- not existing key: indices like `[root.index, ..., parent.index, self.index]`
+- `key` exists: Returns keys like `[root[key], ..., parent[key], self[key]]`
+- `key` is `null`: Returns indices like `[root.index, ..., parent.index, self.index]`
+- `key` is `undefined`: Returns nodes like `[root, ..., parent, self]`
 
 ### `tree.parent(id)`
 
-Get parent node of the target node.
+Get the parent node of the target node.
 
 **Parameters:**
 
-- `id` {String|Number} - Target node id
+- `id` {String|Number} - Target node ID
 
 **Returns:** {Object|null} - Parent node or null
 
@@ -111,13 +123,13 @@ Filter tree nodes by condition.
 
 ### `tree.sub(id)`
 
-Get subtree rooted at target node.
+Get the subtree rooted at target node.
 
 **Parameters:**
 
-- `id` {String|Number} - Target node id
+- `id` {String|Number} - Target node ID
 
-**Returns:** {Array} - Subtree array
+**Returns:** {Tree|null} - Subtree instance or null
 
 ### `tree.getDepth()`
 

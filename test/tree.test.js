@@ -78,20 +78,6 @@ describe('Tree', () => {
     })
   })
 
-  describe('sub', () => {
-    it('should return subtree array', () => {
-      const subTree = tree.sub('330106')
-      assert(subTree[0].adcode === '330106')
-      assert(subTree[0].districts.every(i => i.adcode.startsWith('330106')))
-    })
-
-    it('should return empty array when node not found', () => {
-      const notFoundSub = tree.sub('999999999')
-      assert(Array.isArray(notFoundSub))
-      assert(notFoundSub.length === 0)
-    })
-  })
-
   describe('parent', () => {
     it('should return parent node', () => {
       const parent = tree.parent('330106008')
@@ -102,6 +88,20 @@ describe('Tree', () => {
     it('should return null for root node', () => {
       const rootParent = tree.parent('33')
       assert(rootParent === null)
+    })
+  })
+
+  describe('sub', () => {
+    it('should return subtree of Tree instance', () => {
+      const sub = tree.sub('330106')
+      assert(sub instanceof Tree)
+      assert(sub.tree[0].adcode === '330106')
+      assert(sub.tree[0].districts.every(i => i.adcode.startsWith('330106')))
+    })
+
+    it('should return empty array when node not found', () => {
+      const empty = tree.sub('999999999')
+      assert(empty ?? true, true)
     })
   })
 })

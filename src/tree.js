@@ -244,14 +244,15 @@ class Tree {
    * 获取指定对象的子树，返回子树的数组表示
    *
    * @param {String} id - 对象的id
-   * @return {Array} 子树的数组表示
+   * @return {Tree} 子树实例
    */
   sub(id) {
     const { children } = this.config
     const entry = this.getNodeMap()[id]
-    if (!entry) return []
+    if (!entry) return null
     const { node } = entry
-    return [{ ...node, [children]: node[children] ? [...node[children]] : [] }]
+    const kids = node[children] ? [...node[children]] : []
+    return new Tree([{ ...node, [children]: kids }], this.config)
   }
 
   /**
