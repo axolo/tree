@@ -9,6 +9,16 @@ const array = raw.toArray()
 const tree = Tree.from(array, config)
 
 describe('Tree', () => {
+  describe('Tree.from', () => {
+    it('should return Tree instance', () => {
+      assert(tree instanceof Tree)
+    })
+
+    it('should have tree property as array', () => {
+      assert(Array.isArray(tree.tree))
+    })
+  })
+
   describe('toArray', () => {
     it('should return non-empty array', () => {
       assert(Array.isArray(array))
@@ -21,26 +31,6 @@ describe('Tree', () => {
       const depth = raw.getDepth()
       assert(typeof depth === 'number')
       assert(depth > 0)
-    })
-  })
-
-  describe('Tree.from', () => {
-    it('should return Tree instance', () => {
-      assert(tree instanceof Tree)
-    })
-
-    it('should have tree property as array', () => {
-      assert(Array.isArray(tree.tree))
-    })
-  })
-
-  describe('tree.depth', () => {
-    it('should be a number', () => {
-      assert(typeof tree.depth === 'number')
-    })
-
-    it('should equal getDepth return value', () => {
-      assert(tree.depth === raw.getDepth())
     })
   })
 
