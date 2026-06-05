@@ -6,6 +6,6 @@ export default {
       name: 'Tree',
       formats: ['es', 'umd'],
       fileName: format => `tree.${format}.js`
-    },
+    }
   }
 }

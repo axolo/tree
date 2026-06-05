@@ -1,7 +1,7 @@
 import assert from 'node:assert'
 import { describe, it } from 'node:test'
-import Tree from '../src/tree.js'
 import adcode from './330000.json' with { type: 'json' }
+import Tree from '../src/tree.js'
 
 const config = { id: 'adcode', children: 'districts' }
 const raw = new Tree(adcode, config)
@@ -63,8 +63,9 @@ describe('Tree', () => {
   describe('filter', () => {
     it('should return filtered Tree instance', () => {
       const filter = tree.filter(node => node.name.includes('湖'))
+      const names = filter.toArray().filter(i => i.name.includes('湖')).map(i => i.name)
       assert(filter instanceof Tree)
-      assert(filter.value.length > 0)
+      assert.deepStrictEqual(names, [ '平湖市', '南湖区', '湖州市', '西湖区', '西湖街道' ])
     })
   })
 

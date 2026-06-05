@@ -62,77 +62,77 @@ const depth = tree.getDepth() // 3
 
 Convert an array to a Tree instance.
 
-**Parameters:**
+**Param:**
 
 - `array` {Array} - Flattened tree data array
 - `config` {Object} - Optional configuration
 
-**Returns:** {Tree} - Tree instance
+**Return:** {Tree} - Tree instance
 
 ### `new Tree(tree, config = {})`
 
 Create a new Tree instance.
 
-**Parameters:**
+**Param:**
 
 - `tree` {Array} - Tree structure data array
 - `config` {Object} - Optional configuration
 
-**Returns:** {Tree} - Tree instance
+**Return:** {Tree} - Tree instance
 
 ### `tree.toArray()`
 
 Convert tree back to flattened array.
 
-**Returns:** {Array} - Flattened tree array
+**Return:** {Array} - Flattened tree array
 
 ### `tree.path(id, key = undefined)`
 
 Get the path from root to target node.
 
-**Parameters:**
+**Param:**
 
 - `id` {String|Number} - Target node ID
 - `key` {String|null|undefined} - Property key to return
 
-**Returns:** {Array} - Path array containing nodes, specified keys, or indices
+**Return:** {Array} - Path array containing nodes, specified keys, or indices
 
-- `key` exists: Returns keys like `[root[key], ..., parent[key], self[key]]`
-- `key` is `null`: Returns indices like `[root.index, ..., parent.index, self.index]`
-- `key` is `undefined`: Returns nodes like `[root, ..., parent, self]`
+- `key` exists: Return keys like `[root[key], ..., parent[key], self[key]]`
+- `key` is `null`: Return indices like `[root.index, ..., parent.index, self.index]`
+- `key` is `undefined`: Return nodes like `[root, ..., parent, self]`
 
 ### `tree.parent(id)`
 
 Get the parent node of the target node.
 
-**Parameters:**
+**Param:**
 
 - `id` {String|Number} - Target node ID
 
-**Returns:** {Object|null} - Parent node or null
+**Return:** {Object|null} - Parent node or null
 
 ### `tree.filter(condition)`
 
 Filter tree nodes by condition.
 
-**Parameters:**
+**Param:**
 
-- `condition` {Function} - Filter function (receives node, returns boolean)
+- `condition` {Function} - Filter function (receives node, return boolean)
 
-**Returns:** {Tree} - Filtered tree instance
+**Return:** {Tree} - Tree instance
 
 ### `tree.sub(id)`
 
 Get the subtree rooted at target node.
 
-**Parameters:**
+**Param:**
 
 - `id` {String|Number} - Target node ID
 
-**Returns:** {Tree|null} - Subtree instance or null
+**Return:** {Tree|null} - Tree instance or null
 
 ### `tree.getDepth()`
 
 Get the maximum depth of the tree.
 
-**Returns:** {Number} - Tree depth
+**Return:** {Number} - tree depth
