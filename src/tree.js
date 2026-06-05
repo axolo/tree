@@ -7,16 +7,6 @@
  * @param {Object} config - 树的配置，包含id、parentId等属性
  */
 class Tree {
-  constructor(value, config) {
-    this.value = value
-    this.depth = 0
-    this.nodeMap = null
-    this.config = {
-      ...Tree.config,
-      ...config
-    }
-  }
-
   /**
    * ** config **
    *
@@ -29,12 +19,22 @@ class Tree {
    * @property {string} depth - 节点的深度属性名
    * @property {string} leaf - 节点是否为叶子节点属性名
    */
-  static config = {
+  static #defaultConfig = {
     id: 'id',
     parentId: 'parentId',
     children: 'children',
     depth: 'depth',
     leaf: 'leaf',
+  }
+
+  constructor(value, config) {
+    this.value = value
+    this.depth = 0
+    this.nodeMap = null
+    this.config = {
+      ...Tree.#defaultConfig,
+      ...config
+    }
   }
 
   /**
@@ -46,7 +46,7 @@ class Tree {
    * @return {Tree} 树对象
    */
   static from(array, config) {
-    const options = { ...Tree.config, ...config }
+    const options = { ...Tree.#defaultConfig, ...config }
     const { id, parentId, children, leaf, depth } = options
     const tree = new Tree([], options)
     const map = {}
