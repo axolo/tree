@@ -15,7 +15,7 @@ describe('Tree', () => {
     })
 
     it('should have tree property as array', () => {
-      assert(Array.isArray(tree.tree))
+      assert(Array.isArray(tree.value))
     })
   })
 
@@ -61,10 +61,10 @@ describe('Tree', () => {
   })
 
   describe('filter', () => {
-    it('should return filtered nodes array', () => {
+    it('should return filtered Tree instance', () => {
       const filter = tree.filter(node => node.name.includes('湖'))
-      assert(Array.isArray(filter))
-      assert(filter.length > 0)
+      assert(filter instanceof Tree)
+      assert(filter.value.length > 0)
     })
   })
 
@@ -85,8 +85,8 @@ describe('Tree', () => {
     it('should return subtree of Tree instance', () => {
       const sub = tree.sub('330106')
       assert(sub instanceof Tree)
-      assert(sub.tree[0].adcode === '330106')
-      assert(sub.tree[0].districts.every(i => i.adcode.startsWith('330106')))
+      assert(sub.value[0].adcode === '330106')
+      assert(sub.value[0].districts.every(i => i.adcode.startsWith('330106')))
     })
 
     it('should return empty array when node not found', () => {

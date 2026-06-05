@@ -22,7 +22,7 @@ const array = [
 ]
 
 // Convert array to Tree instance
-// tree.tree is tree structure data
+// tree.value is tree structure data
 const tree = Tree.from(array)
 
 // Convert tree to array
@@ -119,7 +119,7 @@ Filter tree nodes by condition.
 
 - `condition` {Function} - Filter function (receives node, returns boolean)
 
-**Returns:** {Array} - Filtered tree array
+**Returns:** {Tree} - Filtered tree instance
 
 ### `tree.sub(id)`
 

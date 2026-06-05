@@ -3,12 +3,12 @@
  *
  * 提供树的转换、溯源、遍历、过滤、子树等操作
  *
- * @param {Array} tree - 树的数组表示
+ * @param {Array} value - 树结构的数组
  * @param {Object} config - 树的配置，包含id、parentId等属性
  */
 class Tree {
-  constructor(tree, config) {
-    this.tree = tree
+  constructor(value, config) {
+    this.value = value
     this.depth = 0
     this.nodeMap = null
     this.config = {
@@ -90,7 +90,7 @@ class Tree {
       }
     })
 
-    tree.tree = roots
+    tree.value = roots
     tree.depth = maxDepth
     return tree
   }
@@ -109,7 +109,7 @@ class Tree {
 
     const { id, children } = this.config
     const map = {}
-    const stack = [...this.tree.map((node, index) => ({ node, parentIndex: -1, index }))]
+    const stack = [...this.value.map((node, index) => ({ node, parentIndex: -1, index }))]
 
     while (stack.length) {
       const { node, index } = stack.pop()
@@ -151,7 +151,7 @@ class Tree {
       })
     }
 
-    traverse(this.tree, 1, null)
+    traverse(this.value, 1, null)
     return result
   }
 
@@ -213,7 +213,7 @@ class Tree {
    * 根据指定条件过滤树，返回过滤后的树
    *
    * @param {Function} condition - 过滤条件函数，接收一个对象作为参数，返回一个布尔值
-   * @return {Array} 过滤后的树数组表示
+   * @return {Tree} 过滤后的树实例
    */
   filter(condition) {
     const { children } = this.config
@@ -234,8 +234,8 @@ class Tree {
       }, [])
     }
 
-    const filteredTree = filterTree(this.tree)
-    return filteredTree
+    const filteredTree = filterTree(this.value)
+    return new Tree(filteredTree, this.config)
   }
 
   /**
@@ -277,7 +277,7 @@ class Tree {
       ))
     }
 
-    this.depth = calcDepth(this.tree)
+    this.depth = calcDepth(this.value)
     return this.depth
   }
 }
