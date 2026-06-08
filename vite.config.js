@@ -1,4 +1,13 @@
+import copy from 'rollup-plugin-copy'
+
 export default {
+  plugins: [
+    copy({
+      targets: [
+        { src: 'src/tree.d.ts', dest: 'dist' }
+      ]
+    }),
+  ],
   build: {
     minify: 'terser',
     lib: {

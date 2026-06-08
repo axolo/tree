@@ -1,6 +1,6 @@
 {
   "name": "@axolo/tree",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "A lightweight JavaScript library for tree data structure operations.",
   "license": "MIT",
   "author": "axolo",
@@ -10,10 +10,12 @@
   ],
   "module": "dist/tree.es.js",
   "main": "dist/tree.umd.js",
+  "types": "dist/tree.d.ts",
   "exports": {
     ".": {
       "import": "./dist/tree.es.js",
-      "require": "./dist/tree.umd.js"
+      "require": "./dist/tree.umd.js",
+      "types": "./dist/tree.d.ts"
     }
   },
   "keywords": [
@@ -30,6 +32,7 @@
     "test": "node test/tree.test.js"
   },
   "devDependencies": {
+    "rollup-plugin-copy": "^3.5.0",
     "terser": "^5.48.0",
     "vite": "^8.0.16"
   }
