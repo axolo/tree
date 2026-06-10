@@ -208,6 +208,18 @@ class Tree {
   }
 
   /**
+   * ** myself **
+   *
+   * 获取指定对象的自身对象
+   *
+   * @param {String} id - 对象的id
+   * @return {Object} 自身对象
+   */
+  myself(id) {
+    return this.getNodeMap()[id]?.node || null
+  }
+
+  /**
    * ** filter **
    *
    * 根据指定条件过滤树，返回过滤后的树

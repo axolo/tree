@@ -82,6 +82,19 @@ describe('Tree', () => {
     })
   })
 
+  describe('myself', () => {
+    it('should return myself node', () => {
+      const myself = tree.myself('330106008')
+      assert(typeof myself === 'object' && myself !== null)
+      assert(myself.adcode === '330106008')
+    })
+
+    it('should return null for node not found', () => {
+      const notFound = tree.myself('999999999')
+      assert(notFound === null)
+    })
+  })
+
   describe('sub', () => {
     it('should return subtree of Tree instance', () => {
       const sub = tree.sub('330106')

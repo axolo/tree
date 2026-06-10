@@ -55,6 +55,13 @@ declare module '@axolo/tree' {
     parent(id: string): any | null
 
     /**
+     * 获取指定对象的自身对象
+     * @param id - 对象的 id
+     * @returns 自身对象
+     */
+    myself(id: string): any | null
+
+    /**
      * 根据指定条件过滤树
      * @param condition - 过滤条件函数
      * @returns 过滤后的树实例

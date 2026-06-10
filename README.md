@@ -36,6 +36,9 @@ const pathIndices = tree.path(4, null) // [0, 0, 0]
 // Get parent node by id
 const parent = tree.parent(4) // { id: 2, ... }
 
+// Get myself node by id
+const myself = tree.myself(4) // { id: 4, ... }
+
 // Filter tree with condition function
 const filtered = tree.filter(node => node.name.includes('Child'))
 
@@ -110,6 +113,16 @@ Get the parent node of the target node.
 - `id` {String|Number} - Target node ID
 
 **Return:** {Object|null} - Parent node or null
+
+### `tree.myself(id)`
+
+Get the myself node of the target node.
+
+**Param:**
+
+- `id` {String|Number} - Target node ID
+
+**Return:** {Object|null} - Myself node or null
 
 ### `tree.filter(condition)`
 
