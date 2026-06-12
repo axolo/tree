@@ -1,6 +1,6 @@
 {
   "name": "@axolo/tree",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A lightweight JavaScript library for tree data structure operations.",
   "license": "MIT",
   "author": "axolo",

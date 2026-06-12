@@ -27,7 +27,7 @@ class Tree {
     leaf: 'leaf',
   }
 
-  constructor(value, config) {
+  constructor(value = [], config = {}) {
     this.value = value
     this.depth = 0
     this.nodeMap = null
@@ -107,15 +107,18 @@ class Tree {
       return this.nodeMap
     }
 
-    const { id, children } = this.config
+    const { id, children, parentId } = this.config
     const map = {}
-    const stack = [...this.value.map((node, index) => ({ node, parentIndex: -1, index }))]
+    const stack = [...this.value.map((node, index) => ({ node, parentIndex: -1, index, parentNodeId: null }))]
 
     while (stack.length) {
-      const { node, index } = stack.pop()
-      map[node[id]] = { node, index }
+      const { node, index, parentNodeId } = stack.pop()
+      map[node[id]] = { node, index, parentNodeId }
+      if (!node[parentId]) {
+        node[parentId] = parentNodeId
+      }
       if (node[children]?.length) {
-        stack.push(...node[children].map((child, idx) => ({ node: child, index: idx })))
+        stack.push(...node[children].map((child, idx) => ({ node: child, index: idx, parentNodeId: node[id] })))
       }
     }
 

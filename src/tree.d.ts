@@ -17,7 +17,7 @@ declare module '@axolo/tree' {
     nodeMap: Record<string, { node: any; index: number }> | null
     config: Required<TreeConfig>
 
-    constructor(value: any[], config?: TreeConfig)
+    constructor(value?: any[], config?: TreeConfig)
 
     /**
      * 将数组转换为树

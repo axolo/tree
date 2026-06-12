@@ -30,7 +30,13 @@ describe('Tree', () => {
     it('should return positive number', () => {
       const depth = raw.getDepth()
       assert(typeof depth === 'number')
-      assert(depth > 0)
+      assert(depth === 4)
+    })
+
+    it('raw.getDepth should return same result as tree.getDepth', () => {
+      const depth = raw.getDepth()
+      assert(typeof depth === 'number')
+      assert(depth === 4)
     })
   })
 
@@ -58,6 +64,12 @@ describe('Tree', () => {
       assert(Array.isArray(notFoundPath))
       assert(notFoundPath.length === 0)
     })
+
+    it('raw.path should return same result as tree.path', () => {
+      const nodes = raw.path('330106008')
+      assert(Array.isArray(nodes))
+      assert.deepStrictEqual(nodes.map(i => i.adcode), ['33', '3301', '330106', '330106008'])
+    })
   })
 
   describe('filter', () => {
@@ -67,11 +79,24 @@ describe('Tree', () => {
       assert(filter instanceof Tree)
       assert.deepStrictEqual(names, [ '平湖市', '南湖区', '湖州市', '西湖区', '西湖街道' ])
     })
+
+    it('raw.filter should return same result as tree.filter', () => {
+      const filter = raw.filter(node => node.name.includes('湖'))
+      const names = filter.toArray().filter(i => i.name.includes('湖')).map(i => i.name)
+      assert(filter instanceof Tree)
+      assert.deepStrictEqual(names, [ '平湖市', '南湖区', '湖州市', '西湖区', '西湖街道' ])
+    })
   })
 
   describe('parent', () => {
     it('should return parent node', () => {
       const parent = tree.parent('330106008')
+      assert(typeof parent === 'object' && parent !== null)
+      assert(parent.adcode === '330106')
+    })
+
+    it('raw.parent should return same result as tree.parent', () => {
+      const parent = raw.parent('330106008')
       assert(typeof parent === 'object' && parent !== null)
       assert(parent.adcode === '330106')
     })
@@ -89,6 +114,12 @@ describe('Tree', () => {
       assert(myself.adcode === '330106008')
     })
 
+    it('raw.myself should return same result as tree.myself', () => {
+      const myself = raw.myself('330106008')
+      assert(typeof myself === 'object' && myself !== null)
+      assert(myself.adcode === '330106008')
+    })
+
     it('should return null for node not found', () => {
       const notFound = tree.myself('999999999')
       assert(notFound === null)
@@ -98,6 +129,13 @@ describe('Tree', () => {
   describe('sub', () => {
     it('should return subtree of Tree instance', () => {
       const sub = tree.sub('330106')
+      assert(sub instanceof Tree)
+      assert(sub.value[0].adcode === '330106')
+      assert(sub.value[0].districts.every(i => i.adcode.startsWith('330106')))
+    })
+
+    it('raw.sub should return same result as tree.sub', () => {
+      const sub = raw.sub('330106')
       assert(sub instanceof Tree)
       assert(sub.value[0].adcode === '330106')
       assert(sub.value[0].districts.every(i => i.adcode.startsWith('330106')))
