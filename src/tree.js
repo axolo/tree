@@ -63,27 +63,34 @@ class Tree {
       }
     })
 
-    // 2️⃣ 第二次遍历：建立父子关系并设置深度
+    // 2️⃣ 第二次遍历：建立父子关系
     array.forEach(item => {
       const node = map[item[id]]
       const parent = map[item[parentId]]
 
       if (parent) {
         parent[leaf] = false
-        node[depth] = parent[depth] + 1
         parent[children].push(node)
       } else {
-        node[depth] = 1 // 🌱 根节点深度为 1
         roots.push(node)
-      }
-
-      // 🔥 实时更新最大深度
-      if (node[depth] > maxDepth) {
-        maxDepth = node[depth]
       }
     })
 
-    // 3️⃣ 移除空的 children 属性
+    // 3️⃣ 递归计算深度（不依赖数组顺序）
+    const calcDepth = (nodes, deep) => {
+      nodes.forEach(node => {
+        node[depth] = deep
+        if (node[depth] > maxDepth) {
+          maxDepth = node[depth]
+        }
+        if (node[children]?.length) {
+          calcDepth(node[children], deep + 1)
+        }
+      })
+    }
+    calcDepth(roots, 1)
+
+    // 4️⃣ 移除空的 children 属性
     Object.values(map).forEach(node => {
       if (!node[children]?.length) {
         delete node[children]
